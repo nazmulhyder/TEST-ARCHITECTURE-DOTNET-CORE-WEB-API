@@ -28,9 +28,16 @@ namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API
         {
 
             services.AddControllers();
+            services.AddCors(cors =>
+            {
+                cors.AddPolicy("CorsPolicy", builder =>
+                    builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
+            });
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "TEST_ARCHITECTURE_DOTNET_CORE_WEB_API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "DOT NET CORE WEB API ARCHITECTURE", Version = "v1" });
             });
         }
 
@@ -40,9 +47,13 @@ namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TEST_ARCHITECTURE_DOTNET_CORE_WEB_API v1"));
             }
+
+          
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DOT NET CORE WEB API ARCHITECTURE"));
+
+            app.UseCors("CorsPolicy");
 
             app.UseHttpsRedirection();
 
