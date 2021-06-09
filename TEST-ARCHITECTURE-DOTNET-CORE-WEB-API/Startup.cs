@@ -11,6 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Data;
 
 namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API
 {
@@ -26,8 +28,9 @@ namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            services.AddControllers();
+            services.AddDbContext<DatabaseContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DBConnectionString"))
+            );
             services.AddCors(cors =>
             {
                 cors.AddPolicy("CorsPolicy", builder =>
@@ -39,6 +42,7 @@ namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DOT NET CORE WEB API ARCHITECTURE", Version = "v1" });
             });
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
