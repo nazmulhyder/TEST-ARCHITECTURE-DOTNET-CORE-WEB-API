@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Configuration;
 using TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Data;
 
 namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API
@@ -38,6 +39,9 @@ namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API
                         .AllowAnyMethod()
                         .AllowAnyHeader());
             });
+
+            services.AddAutoMapper(typeof(MapperInitializer));
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DOT NET CORE WEB API ARCHITECTURE", Version = "v1" });

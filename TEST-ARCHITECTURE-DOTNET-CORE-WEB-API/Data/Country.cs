@@ -10,7 +10,6 @@ namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Data
         public int Id { get; set; }
         public string Name { get; set; }
         public string ShortName { get; set; }
-        //public ICollection<Hotel> Hotels { get; set; }
-
+        public virtual ICollection<Hotel> Hotels { get; set; }
     }
 }
