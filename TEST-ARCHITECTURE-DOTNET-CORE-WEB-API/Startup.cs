@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Configuration;
 using TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Data;
 using TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.IRepository;
@@ -50,7 +51,9 @@ namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DOT NET CORE WEB API ARCHITECTURE", Version = "v1" });
             });
-            services.AddControllers();
+
+            services.AddControllers().AddNewtonsoftJson(op =>
+                op.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

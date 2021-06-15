@@ -51,7 +51,7 @@ namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Repository
             {
                 foreach (var includeProperty in includes)
                 {
-                    query.Include(includeProperty);
+                    query = query.Include(includeProperty);
                 }
             }
 
