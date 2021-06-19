@@ -35,6 +35,10 @@ namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API
             services.AddDbContext<DatabaseContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DBConnectionString"))
             );
+
+            services.AddAuthentication();
+            services.ConfigureIdentity();
+
             services.AddCors(cors =>
             {
                 cors.AddPolicy("CorsPolicy", builder =>

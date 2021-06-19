@@ -3,10 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Data
 {
-    public class DatabaseContext : DbContext
+    public class DatabaseContext : IdentityDbContext<User>
     {
         public DatabaseContext(DbContextOptions options) : base(options)
         {
@@ -15,6 +16,7 @@ namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             //seeding country
             modelBuilder.Entity<Country>().HasData(
                 new Country
