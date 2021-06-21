@@ -53,6 +53,7 @@ namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Controllers
                     return BadRequest(ModelState);
                 }
 
+                await _userManager.AddToRolesAsync(user, userDto.Roles);
                 return Accepted();
             }
             catch (Exception ex)

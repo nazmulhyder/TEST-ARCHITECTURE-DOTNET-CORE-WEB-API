@@ -8,7 +8,6 @@ namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Models
 {
     public class UserLoginDto
     {
-
         [Required]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
@@ -25,5 +24,6 @@ namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Models
         public string  LastName { get; set; }
         [DataType(DataType.PhoneNumber)]
         public string PhoneNumber { get; set; }
+        public ICollection<string> Roles { get; set; }
     }
 }

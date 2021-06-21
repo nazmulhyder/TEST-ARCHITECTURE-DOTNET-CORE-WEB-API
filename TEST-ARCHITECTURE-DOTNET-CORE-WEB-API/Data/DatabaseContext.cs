@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Configuration.Entities;
 
 namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Data
 {
@@ -17,6 +18,8 @@ namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyConfiguration(new RoleConfiguration());
             //seeding country
             modelBuilder.Entity<Country>().HasData(
                 new Country
