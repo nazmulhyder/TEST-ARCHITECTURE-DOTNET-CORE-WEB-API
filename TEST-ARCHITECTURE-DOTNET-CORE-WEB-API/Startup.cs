@@ -17,6 +17,7 @@ using TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Configuration;
 using TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Data;
 using TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.IRepository;
 using TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Repository;
+using TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Service;
 
 namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API
 {
@@ -38,6 +39,7 @@ namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API
 
             services.AddAuthentication();
             services.ConfigureIdentity();
+            services.ConfigureJwt(Configuration);
 
             services.AddCors(cors =>
             {
@@ -50,6 +52,7 @@ namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API
             services.AddAutoMapper(typeof(MapperInitializer));
 
             services.AddTransient<IUnitOfWork,UnitOfWork>();
+            services.AddScoped<IAuthManager, AuthManager>();
 
             services.AddSwaggerGen(c =>
             {
