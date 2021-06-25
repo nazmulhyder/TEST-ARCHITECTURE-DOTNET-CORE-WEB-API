@@ -41,6 +41,7 @@ namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
 
+                        ValidAudience = configuration["JWT:ValidAudience"],
                         ValidIssuer = configuration["JWT:ValidIssuer"],
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
 

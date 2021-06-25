@@ -44,8 +44,10 @@ namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Service
         {
             var jwtSettings = _configuration.GetSection("JWT");
             var validIssuer = _configuration["JWT:ValidIssuer"];
+            var validAudience = _configuration["JWT:ValidAudience"];
             var token = new JwtSecurityToken(
                 issuer: validIssuer,
+                audience: validAudience,
                 claims: authClaims,
                 signingCredentials:signingCredentials,
                 expires: DateTime.Now.AddMinutes(15)
@@ -58,7 +60,8 @@ namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Service
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, _user.UserName)
+                new Claim(ClaimTypes.Name, _user.UserName),
+                new Claim("user_id", _user.Id)
             };
 
             var roles = await this._userManager.GetRolesAsync(_user);

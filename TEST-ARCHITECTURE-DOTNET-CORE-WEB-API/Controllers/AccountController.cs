@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Data;
 using TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.IRepository;
 using TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Models;
+using TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Service;
 
 namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Controllers
 {
@@ -18,16 +19,16 @@ namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Controllers
     public class AccountController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
-        //private readonly SignInManager<User> _signInManager;
         private readonly ILogger<AccountController> _logger;
+        private readonly IAuthManager _authManager;
         private IMapper _mapper;
 
-        public AccountController(UserManager<User> userManager,  ILogger<AccountController> logger, IMapper mapper)
+        public AccountController(UserManager<User> userManager,  ILogger<AccountController> logger, IMapper mapper, IAuthManager authManager)
         {
-            //this._signInManager = signInManager;
             this._userManager = userManager;
             this._mapper = mapper;
             this._logger = logger;
+            this._authManager = authManager;
         }
 
         [HttpPost("Register")]
@@ -64,32 +65,32 @@ namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Controllers
         }
 
         [HttpPost("Login")]
-        public  Task<IActionResult> Login([FromBody] UserLoginDto userLoginDto)
+        public async Task<IActionResult> Login([FromBody] UserLoginDto userLoginDto)
         {
-            throw new NotImplementedException();
-            //_logger.LogInformation($"Registration Attempt for {userLoginDto.Email}");
-            //if (!ModelState.IsValid)
-            //{
-            //    return BadRequest(ModelState);
-            //}
-            //try
-            //{
-            //    var result =
-            //        await _signInManager.PasswordSignInAsync(userLoginDto.Email, userLoginDto.Password, false, false);
 
-            //    if (!result.Succeeded)
-            //    {
-            //        return Unauthorized(userLoginDto);
+            _logger.LogInformation($"Registration Attempt for {userLoginDto.Email}");
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            try
+            {
+                if (!await this._authManager.ValidateUser(userLoginDto))
+                {
+                    return Unauthorized();
+                }
 
-            //    }
-
-            //    return Accepted();
-            //}
-            //catch (Exception ex)
-            //{
-            //    this._logger.LogError(ex, $"Something went wrong in the {nameof(Login)}");
-            //    return StatusCode(500, "Internal Server Error!Pls try again later!");
-            //}
+                return Accepted(new
+                {
+                    token = await _authManager.CreateToken(),
+                    expiration = DateTime.Now.AddMinutes(15)
+                });
+            }
+            catch (Exception ex)
+            {
+                this._logger.LogError(ex, $"Something went wrong in the {nameof(Login)}");
+                return Problem($"Something went wrong in the {nameof(Login)}!",statusCode:500);
+            }
         }
     }
 }

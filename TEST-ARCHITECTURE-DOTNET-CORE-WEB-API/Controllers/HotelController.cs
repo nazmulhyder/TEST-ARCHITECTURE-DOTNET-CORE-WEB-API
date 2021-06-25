@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 using TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.IRepository;
 using TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Models;
@@ -26,6 +27,7 @@ namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Controllers
             this._mapper = mapper;
         }
 
+        [Authorize]
         [HttpGet("GetHotels")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -44,6 +46,7 @@ namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("GetHotel/{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

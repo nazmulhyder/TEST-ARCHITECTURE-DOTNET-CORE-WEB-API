@@ -81,6 +81,8 @@ namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API
 
             app.UseRouting();
 
+            app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
