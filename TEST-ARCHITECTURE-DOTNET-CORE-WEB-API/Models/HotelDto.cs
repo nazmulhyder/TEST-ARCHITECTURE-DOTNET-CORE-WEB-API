@@ -25,6 +25,11 @@ namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Models
         public int CountryId { get; set; }
     }
 
+    public class UpdateHotelDto : CreateHotelDto
+    {
+       
+    }
+
     public class HotelDto : CreateHotelDto
     {
         public int Id { get; set; }

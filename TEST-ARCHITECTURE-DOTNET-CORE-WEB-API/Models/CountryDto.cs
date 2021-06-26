@@ -17,10 +17,15 @@ namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Models
         public string ShortName { get; set; }
     }
 
-    public class CountryDto : CreateCountryDto
+    public class UpdateCountryDto : CreateCountryDto
+    {
+        public ICollection<CreateHotelDto> Hotels { get; set; }
+    }
+
+    public class CountryDto : UpdateCountryDto
     {
         public int Id { get; set; }
-        public ICollection<HotelDto> Hotels { get; set; }
+       
 
     }
 }
