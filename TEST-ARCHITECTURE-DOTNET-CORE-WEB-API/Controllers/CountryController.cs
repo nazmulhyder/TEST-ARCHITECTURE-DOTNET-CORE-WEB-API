@@ -112,7 +112,7 @@ namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Controllers
                 if (country == null)
                 {
                     this._logger.LogError($"Invalid update attempt in {nameof(UpdateCountry)}");
-                    return BadRequest("Submitted data is invalid!");
+                    return BadRequest("Data Not Found!");
                 }
 
                 _mapper.Map(countryDto, country);
@@ -128,7 +128,7 @@ namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Controllers
             catch (Exception ex)
             {
                 this._logger.LogError(ex, $"Something went wrong in the {nameof(UpdateCountry)}");
-                return StatusCode(500, "Internal server error! try again later!");
+                return StatusCode(500, "Internal server error!");
             }
         }
 

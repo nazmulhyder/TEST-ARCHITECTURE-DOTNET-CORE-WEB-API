@@ -12,6 +12,7 @@ namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Repository
         private IGenericRepository<Country> _countries;
         private IGenericRepository<Hotel> _hotels;
         private readonly DatabaseContext _context;
+
         public UnitOfWork(DatabaseContext context)
         {
             this._context = context;

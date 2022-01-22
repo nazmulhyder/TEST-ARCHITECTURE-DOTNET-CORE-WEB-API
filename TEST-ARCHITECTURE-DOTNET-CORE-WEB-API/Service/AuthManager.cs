@@ -60,7 +60,7 @@ namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Service
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, _user.UserName),
+                new Claim("user_email", _user.Email),
                 new Claim("user_id", _user.Id)
             };
 

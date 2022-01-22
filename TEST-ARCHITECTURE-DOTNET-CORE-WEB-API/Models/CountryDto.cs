@@ -25,7 +25,5 @@ namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Models
     public class CountryDto : UpdateCountryDto
     {
         public int Id { get; set; }
-       
-
     }
 }
