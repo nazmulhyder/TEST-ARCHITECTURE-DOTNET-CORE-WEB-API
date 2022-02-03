@@ -55,7 +55,7 @@ namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Controllers
                 }
 
                 await _userManager.AddToRolesAsync(user, userDto.Roles);
-                return Accepted();
+                return StatusCode(201,"User Created Successfully!");
             }
             catch (Exception ex)
             {

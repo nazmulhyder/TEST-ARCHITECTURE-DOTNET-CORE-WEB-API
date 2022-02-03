@@ -42,7 +42,6 @@ namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Service
 
         private JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials,List<Claim> authClaims)
         {
-            var jwtSettings = _configuration.GetSection("JWT");
             var validIssuer = _configuration["JWT:ValidIssuer"];
             var validAudience = _configuration["JWT:ValidAudience"];
             var token = new JwtSecurityToken(
@@ -58,10 +57,11 @@ namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Service
 
         private async Task<List<Claim>> GetClaims()
         {
+
             var claims = new List<Claim>
             {
                 new Claim("user_email", _user.Email),
-                new Claim("user_id", _user.Id)
+                new Claim("username", _user.UserName),
             };
 
             var roles = await this._userManager.GetRolesAsync(_user);

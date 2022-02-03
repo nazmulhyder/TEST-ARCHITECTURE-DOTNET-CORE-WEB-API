@@ -47,6 +47,7 @@ namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Controllers
             }
         }
 
+        [Authorize]
         [HttpGet("GetHotel/{id:int}", Name = "GetHotel")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -54,7 +55,9 @@ namespace TEST_ARCHITECTURE_DOTNET_CORE_WEB_API.Controllers
         {
             try
             {
-                var hotel = await this._unitOfWork.Hotels.Get(c=>c.Id == id,new List<string>{ "Country" });
+              var hotel = await this._unitOfWork.Hotels.Get(c=>c.Id == id,new List<string>{ "Country" });
+                //var hotel = await this._unitOfWork.Hotels.Get(c => c.Id == id);
+
                 var result = _mapper.Map<HotelDto>(hotel);
                 return Ok(result);
             }
